@@ -7,6 +7,7 @@ The code that controls our sensor is shown below:
 //----------------------------------------------------------
 // Libraries
 //----------------------------------------------------------
+
 #include <TinyGPSPlus.h>
 #include <HardwareSerial.h>
 #include <PMS.h>
@@ -20,6 +21,7 @@ The code that controls our sensor is shown below:
 //----------------------------------------------------------
 // Pin definitions
 //----------------------------------------------------------
+
 // PMS
 HardwareSerial PM(1);
 PMS pms(PM);
@@ -57,6 +59,7 @@ LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 //----------------------------------------------------------
 // Data Variables
 //----------------------------------------------------------
+
 // PMS
 int pm1; // PM 1
 int pm2_5; // PM 2.5
@@ -86,9 +89,10 @@ double lon; // Longitude
 //----------------------------------------------------------
 // Others
 //----------------------------------------------------------
+
 // User Details
 const String username = "Saul DV";
-const String organisation = "PPLPWR";
+const String organisation = "CAPS";
 
 int readingID = 1;
 
@@ -101,6 +105,7 @@ unsigned long previousTime;
 //----------------------------------------------------------
 // Functions
 //----------------------------------------------------------
+
 // Waits for the defined interval
 void waitForInterval (int interval) {
   previousTime = millis();
@@ -355,6 +360,7 @@ void appendFile(fs::FS &fs, const char * path, const char * message) {
 //----------------------------------------------------------
 // Setup
 //----------------------------------------------------------
+
 void setup() {
 
   // Begin Serial communication
@@ -425,6 +431,7 @@ void setup() {
 //----------------------------------------------------------
 // Loop
 //----------------------------------------------------------
+
 void loop() {
   takeReadings(); // Take readings and save to SD card
   
