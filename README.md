@@ -9,13 +9,21 @@ The code that controls our sensor is shown below:
 //----------------------------------------------------------
 
 #include <TinyGPSPlus.h>
+
 #include <HardwareSerial.h>
+
 #include <PMS.h>
+
 #include <LiquidCrystal_I2C.h>
+
 #include <DHT.h>
+
 #include <SD.h>
+
 #include <SPI.h>
+
 #include <Arduino.h>
+
 #include <WiFi.h>
 
 //----------------------------------------------------------
