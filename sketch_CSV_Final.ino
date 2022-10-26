@@ -1,38 +1,38 @@
 //----------------------------------------------------------
 // Libraries
 //----------------------------------------------------------
-#include <TinyGPSPlus.h>
-#include <HardwareSerial.h>
-#include <PMS.h>
-#include <LiquidCrystal_I2C.h>
-#include <DHT.h>
-#include <SD.h>
-#include <SPI.h>
-#include <Arduino.h>
-#include <WiFi.h>
+#include <TinyGPSPlus.h> // For the GPS module
+#include <HardwareSerial.h> // Needed when using multiple Serial ports
+#include <PMS.h> // For the particulate matter sensor
+#include <LiquidCrystal_I2C.h> // For the LCD screen
+#include <DHT.h> // For the DHT temp/humidity sensor
+#include <SD.h> // For the SD card
+#include <SPI.h> // For using the SPI connection with the SD card
+#include <Arduino.h> // General Arduino library
+#include <WiFi.h> // For Wifi capabilities
 
 //----------------------------------------------------------
 // Pin definitions
 //----------------------------------------------------------
-// PMS
-HardwareSerial PM(1);
+// PMS - Set up PMS object at pins 13 and 14 
+HardwareSerial PM(1); // Specify a PMS as the first Serial connection
 PMS pms(PM);
 PMS::DATA data;
 #define RX1 14
 #define TX1 13
 
-// DHT
-#define DHTPIN 26    // what pin we're connected to
-#define DHTTYPE DHT11   // DHT 22  (AM2302)
+// DHT - Set up DHT11 object at pin 26
+#define DHTPIN 26    
+#define DHTTYPE DHT11   // Specify type of DHT
 DHT dht(DHTPIN, DHTTYPE);
 
-// GPS
-HardwareSerial GPS(2);
+// GPS - Set up GPS object at pins 16 and 17
+HardwareSerial GPS(2); // Specify a GPS as the second Serial connection
 TinyGPSPlus gps;
 #define RX2 17
 #define TX2 16
 
-// LCD
+// LCD - Set up an LCD screen pbject at pins 33 and 36
 #define SDA 33
 #define SCL 36
 // set the LCD number of columns and rows
@@ -41,12 +41,12 @@ const int lcdRows = 2;
 // set LCD address, number of columns and rows
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 
-// SD
+// SD - Set up an SD object at pin 5
 #define SD_CS 5
 
-// WiFi
-#define WIFI_SSID "VM7869624"
-#define WIFI_PASSWORD "Zg4fgtvyjBwr"
+// WiFi - Specify Wifi SSID and Password
+#define WIFI_SSID "???????"
+#define WIFI_PASSWORD "???????"
 
 //----------------------------------------------------------
 // Data Variables
@@ -80,16 +80,16 @@ double lon; // Longitude
 //----------------------------------------------------------
 // Others
 //----------------------------------------------------------
-// User Details
-const String username = "Saul DV";
-const String organisation = "PPLPWR";
+// User Details - Person collecting the data
+const String username = "???????";
+const String organisation = "???????";
 
-int readingID = 1;
+int readingID = 1; // Simply the reading number, we start at 1
 
-const String filename = "/data.txt";
+const String filename = "???????"; // Rest of code is set up for a .txt file
 String message;
 
-const unsigned long interval = 5000;
+const unsigned long interval = 5000; // 1000 = 1 second
 unsigned long previousTime;
 
 //----------------------------------------------------------
@@ -299,22 +299,6 @@ void dateTimePrint() {
   }
 }
 
-// Write to the SD card
-void writeFile(fs::FS &fs, const char * path, const char * message) {
-  Serial.printf("Writing file: %s\n", path);
-
-  File file = fs.open(path, FILE_WRITE);
-  if (!file) {
-    Serial.println("Failed to open file for writing");
-    return;
-  }
-  if (file.print(message)) {
-    Serial.println("File written");
-  } else {
-    Serial.println("Write failed");
-  }
-  file.close();
-}
 
 // Compile a CSV data message and append it to the SD file
 void logSDCard(String username, String organisation, String currentTime, String currentDate, int pm1, int pm2_5, int pm10, float t, float h,
@@ -339,7 +323,8 @@ void appendFile(fs::FS &fs, const char * path, const char * message) {
   if(file.print(message)) {
     Serial.println("Message appended");
     Serial.println();
-  } else {
+  } 
+  else {
     Serial.println("Append failed");
     Serial.println();
   }
