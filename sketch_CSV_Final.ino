@@ -299,7 +299,6 @@ void dateTimePrint() {
   }
 }
 
-
 // Compile a CSV data message and append it to the SD file
 void logSDCard(String username, String organisation, String currentTime, String currentDate, int pm1, int pm2_5, int pm10, float t, float h,
                double lat, double lng) {
